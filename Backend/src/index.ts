@@ -3,6 +3,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import userRouter from './routes/authroutes';
 
 dotenv.config();
 const app = express();
@@ -11,6 +12,8 @@ app.use(cors());
 
 // Middleware
 app.use(express.json());
+
+app.use('/api/auth', userRouter);
 
 // Define a simple route for testing
 app.get('/', (req, res) => {

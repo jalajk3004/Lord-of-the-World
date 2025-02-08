@@ -74,7 +74,7 @@ userRouter.post(
 
     try {
       // Find user
-      const user = await prisma.user.findUnique({ where: { username } });
+      const user = await prisma.user.findFirst({ where: { username } });
 
       if (!user) {
         return res.status(400).json({ error: 'Invalid username or password' });
@@ -135,10 +135,11 @@ userRouter.get('/getusername', async (req: any, res: any) => {
       return res.status(400).json({ error: 'Username is required for search' });
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: { username },
       select: { id: true, email: true, username: true },
     });
+    
 
     if (!user) {
       return res.status(404).json({ error: 'Account Not Found' });
